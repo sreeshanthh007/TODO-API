@@ -4,13 +4,14 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "module-alias": "^2.3.4",
-    "mongoose": "^8.23.0"
+    "mongoose": "^8.23.0",
+    "zod": "^4.3.6"
   },
-"scripts": {
-  "dev": "nodemon --exec ts-node -r tsconfig-paths/register app.ts",
-  "build": "tsc",
-  "start": "node -r module-alias/register dist/app.js"
-},
+  "scripts": {
+    "dev": "nodemon --exec ts-node -r tsconfig-paths/register app.ts",
+    "build": "tsc",
+    "start": "node -r module-alias/register dist/app.js"
+  },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
@@ -31,6 +32,6 @@
     "@routes": "dist/routes",
     "@interfaces": "dist/interfaces",
     "@utils": "dist/utils",
-    "@server":"dist/server"
+    "@server": "dist/server"
   }
 }
