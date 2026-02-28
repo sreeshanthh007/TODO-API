@@ -3,19 +3,21 @@ import { Application } from "express";
 import express from "express"
 import Database from "@config/db"
 import cors from "cors"
+import todoRoute, { TodoRoute } from "@routes/todo.route";
 
 class Server {
 
     public app : Application
     private port : number | string
-
+    private TodoRoute : TodoRoute
     constructor(){
 
         this.app = express()
         this.port = ENV.PORT
-
+        this.TodoRoute = todoRoute
         this._ConnectDatabase()
         this._InitializeMiddlewares()
+        this._initializeRoutes()
     }
 
 
@@ -28,10 +30,15 @@ class Server {
     private async _InitializeMiddlewares() : Promise<void>{
 
         this.app.use(cors({
-            origin: ENV.FRONDEND_URL,
+            origin: ENV.FRONTEND_URL,
             methods:["GET","PATCH","POST"]
         }))
         this.app.use(express.json())
+
+    }
+
+    private async _initializeRoutes() : Promise<void>{
+        this.app.use("/todo",this.TodoRoute.Router)
 
     }
 
