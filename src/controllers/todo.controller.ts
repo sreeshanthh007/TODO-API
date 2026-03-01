@@ -12,7 +12,13 @@ class TodoController {
 
 
         try {
-            const todos = await TodoService.getAll()
+
+           const { page, limit } = req.query as {
+                page: string
+                limit: string
+            }
+
+            const todos = await TodoService.getAll(Number(page),Number(limit))
 
             if(!todos){
                 res.status(StatusCode.NotFound).json({success:false,message:"There are no Todos"})

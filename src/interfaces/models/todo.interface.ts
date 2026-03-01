@@ -7,4 +7,9 @@ export interface ITodo {
     updatedAt:Date
 }
 
+export  interface PaginatedTodo{
+    total:number
+    todos:ITodo[]
+}
+
 export interface ITodoModel extends Omit<ITodo, '_id'>, Document {}

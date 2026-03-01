@@ -1,5 +1,5 @@
 import { UpdateTodoDTO } from "@interfaces/dto/todo.dto";
-import { ITodo } from "@interfaces/models/todo.interface";
+import { ITodo, PaginatedTodo } from "@interfaces/models/todo.interface";
 import { ITodoRepository } from "@interfaces/repository/todo.repository.interface";
 import todoSchema from "@models/todo.schema";
 
@@ -11,8 +11,19 @@ export class TodoRepository implements ITodoRepository{
     }
 
 
-    async getAllTodo(): Promise<ITodo[]> {
-        return await todoSchema.find()
+    async getAllTodo(page:number,limit:number): Promise<PaginatedTodo> {
+        const skip = (page - 1) * limit
+        const [todos,total] = await Promise.all([
+            todoSchema.find().skip(skip).limit(limit).sort({createdAt:-1}).lean(),
+            todoSchema.countDocuments()
+        ]);
+
+         const mapped = todos.map((todo) => ({
+        ...todo,
+        _id: todo._id.toString()  
+    }))
+
+    return { todos: mapped, total }
     }
 
     async updateTodo(id: string, data: UpdateTodoDTO): Promise<void> {
