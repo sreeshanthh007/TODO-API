@@ -3,6 +3,7 @@ import { Application } from "express";
 import express from "express"
 import Database from "@config/db"
 import cors from "cors"
+import morgan from "morgan"
 import todoRoute, { TodoRoute } from "@routes/todo.route";
 
 class Server {
@@ -31,9 +32,10 @@ class Server {
 
         this.app.use(cors({
             origin: ENV.FRONTEND_URL,
-            methods:["GET","PATCH","POST"]
+            methods:["GET","PATCH","POST","DELETE"]
         }))
         this.app.use(express.json())
+        this.app.use(morgan("dev"))
 
     }
 
