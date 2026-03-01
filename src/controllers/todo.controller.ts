@@ -59,8 +59,8 @@ class TodoController {
 
 
         try {
-            
-            const result = createTodoSchema.safeParse(req.body)
+                
+                const result = createTodoSchema.safeParse(req.body)
 
              if (!result.success) {
                 res.status(StatusCode.BadRequest).json({ success: false, message:  result.error.issues[0].message})
