@@ -1,4 +1,5 @@
 import { CreateTodoDTO, TodoResponseDTO, UpdateTodoDTO } from "@interfaces/dto/todo.dto";
+import { PaginatedTodo } from "@interfaces/models/todo.interface";
 import { ITodoRepository } from "@interfaces/repository/todo.repository.interface";
 import { TodoRepository } from "@repositories/todo.repository";
 
@@ -13,9 +14,9 @@ import { TodoRepository } from "@repositories/todo.repository";
 
 
 
-    async getAll() : Promise<TodoResponseDTO[]>{
-
-        return await this.TodoRepository.getAllTodo()
+    async getAll(page:number,limit:number) : Promise<PaginatedTodo>{
+       
+        return await this.TodoRepository.getAllTodo(page,limit)
     }
 
 
